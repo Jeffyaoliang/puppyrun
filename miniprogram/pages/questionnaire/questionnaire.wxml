@@ -12,7 +12,7 @@
     
     <view class="form-item">
       <text class="label">年龄</text>
-      <picker mode="selector" range="{{[18,19,20,21,22,23,24,25,26,27,28,29,30,31,32,33,34,35,36,37,38]}}" value="{{basicInfo.age > 0 ? basicInfo.age - 18 : 0}}" bindchange="onAgeChange">
+      <picker mode="selector" range="{{[18,19,20,21,22,23,24,25]}}" value="{{basicInfo.age > 0 ? basicInfo.age - 18 : 0}}" bindchange="onAgeChange">
         <view class="picker">{{basicInfo.age || '请选择年龄'}}</view>
       </picker>
     </view>
@@ -27,6 +27,16 @@
     <view class="form-item">
       <text class="label">所在城市</text>
       <input class="input" placeholder="请输入城市" value="{{basicInfo.city}}" bindinput="onCityChange" />
+    </view>
+
+    <view class="form-item">
+      <text class="label">身高 (cm)</text>
+      <input class="input" type="number" placeholder="请输入身高" value="{{basicInfo.height}}" bindinput="onHeightChange" />
+    </view>
+
+    <view class="form-item">
+      <text class="label">体重 (kg)</text>
+      <input class="input" type="number" placeholder="请输入体重" value="{{basicInfo.weight}}" bindinput="onWeightChange" />
     </view>
   </view>
 
@@ -49,31 +59,14 @@
     </view>
   </view>
 
-  <!-- 步骤3: 社交需求 -->
+  <!-- 步骤3: 恋爱观倾向（原步骤4） -->
   <view wx:if="{{currentStep === 3}}" class="step-container">
-    <view class="step-title">社交需求（可多选）</view>
-    
-    <view class="options-list">
-      <view 
-        wx:for="{{socialNeedOptions}}" 
-        wx:key="index"
-        class="option-item {{socialNeeds.indexOf(item) > -1 ? 'selected' : ''}}"
-        bindtap="toggleSocialNeed"
-        data-need="{{item}}"
-      >
-        {{item}}
-      </view>
-    </view>
-  </view>
-
-  <!-- 步骤4: 价值观 -->
-  <view wx:if="{{currentStep === 4}}" class="step-container">
-    <view class="step-title">价值观倾向</view>
+    <view class="step-title">恋爱观倾向</view>
     
     <view class="form-item">
-      <text class="label">消费观</text>
+      <text class="label">消费水平</text>
       <picker mode="selector" range="{{consumptionOptions}}" value="{{values.consumption ? consumptionOptions.indexOf(values.consumption) : 0}}" bindchange="onConsumptionChange">
-        <view class="picker">{{values.consumption || '请选择消费观'}}</view>
+        <view class="picker">{{values.consumption || '请选择消费水平'}}</view>
       </picker>
     </view>
 
@@ -92,24 +85,29 @@
     </view>
   </view>
 
-  <!-- 步骤5: 外貌偏好 + 照片 -->
-  <view wx:if="{{currentStep === 5}}" class="step-container">
+  <!-- 步骤4: 外貌偏好（原步骤5） -->
+  <view wx:if="{{currentStep === 4}}" class="step-container">
     <view class="step-title">外貌偏好</view>
     
     <view class="form-item">
-      <text class="label">风格偏好</text>
-      <picker mode="selector" range="{{styleOptions}}" value="{{appearancePref.style ? styleOptions.indexOf(appearancePref.style) : 0}}" bindchange="onStyleChange">
-        <view class="picker">{{appearancePref.style || '请选择风格偏好'}}</view>
+      <text class="label">你属于</text>
+      <picker mode="selector" range="{{acceptanceOptions}}" value="{{appearancePref.acceptance ? acceptanceOptions.indexOf(appearancePref.acceptance) : 0}}" bindchange="onAcceptanceChange">
+        <view class="picker">{{appearancePref.acceptance || '请选择你属于'}}</view>
       </picker>
     </view>
 
     <view class="form-item">
-      <text class="label">接受度</text>
-      <picker mode="selector" range="{{acceptanceOptions}}" value="{{appearancePref.acceptance ? acceptanceOptions.indexOf(appearancePref.acceptance) : 0}}" bindchange="onAcceptanceChange">
-        <view class="picker">{{appearancePref.acceptance || '请选择接受度'}}</view>
+      <text class="label">身高要求</text>
+      <picker mode="selector" range="{{heightRequirementOptions}}" value="{{appearancePref.heightRequirement ? heightRequirementOptions.indexOf(appearancePref.heightRequirement) : 0}}" bindchange="onHeightRequirementChange">
+        <view class="picker">{{appearancePref.heightRequirement || '请选择身高要求'}}</view>
       </picker>
     </view>
+  </view>
 
+  <!-- 步骤5: 上传生活照（原步骤6） -->
+  <view wx:if="{{currentStep === 5}}" class="step-container">
+    <view class="step-title">上传生活照</view>
+    
     <view class="photos-section">
       <text class="label">上传生活照（至少1张）</text>
       <view class="photos-grid">

@@ -11,7 +11,9 @@ Page({
     basicInfo: {
       age: 0,
       education: '',
-      city: ''
+      city: '',
+      height: '',
+      weight: ''
     },
     
     // 步骤2: 兴趣偏好
@@ -19,27 +21,23 @@ Page({
     interestOptions: ['运动', '读书', '旅行', '电影', '音乐', '美食', '摄影', '游戏', '艺术', '科技'],
     interestOptionsWithSelected: [] as Array<{name: string, selected: boolean}>,
     
-    // 步骤3: 社交需求
-    socialNeeds: [] as string[],
-    socialNeedOptions: ['陪伴聊天', '线下活动', '职业交流', '兴趣组队', '资源对接'],
-    
-    // 步骤4: 价值观
+    // 步骤3: 价值观（原步骤4）
     values: {
       consumption: '',
       boundary: '',
       communication: ''
     },
-    consumptionOptions: ['理性消费', '适度消费', '享受消费'],
+    consumptionOptions: ['5000以下', '5000-10000', '10000以上'],
     boundaryOptions: ['严格边界', '适度边界', '开放边界'],
     communicationOptions: ['直接沟通', '委婉沟通', '灵活沟通'],
     
-    // 步骤5: 外貌偏好
+    // 步骤4: 外貌偏好（原步骤5）
     appearancePref: {
-      style: '',
-      acceptance: ''
+      acceptance: '',
+      heightRequirement: ''
     },
-    styleOptions: ['休闲', '正式', '运动', '商务'],
-    acceptanceOptions: ['中等', '中等偏上', '较高'],
+    acceptanceOptions: ['顶级颜控', '有点要求', '更看重内在'],
+    heightRequirementOptions: ['160以下', '160-170', '170+'],
     
     // 照片
     photos: [] as string[],
@@ -100,7 +98,6 @@ Page({
       currentStep: this.data.currentStep,
       basicInfo: this.data.basicInfo,
       interests: this.data.interests,
-      socialNeeds: this.data.socialNeeds,
       values: this.data.values,
       appearancePref: this.data.appearancePref,
       photos: this.data.photos
@@ -110,6 +107,11 @@ Page({
 
   // 下一步
   nextStep() {
+    // 验证当前步骤
+    if (!this.validateCurrentStep()) {
+      return;
+    }
+    
     if (this.data.currentStep < this.data.totalSteps) {
       this.saveData();
       this.setData({
@@ -133,7 +135,7 @@ Page({
   // 步骤1: 基础信息
   onAgeChange(e: any) {
     // e.detail.value 是picker返回的索引值，需要从range数组中获取实际年龄
-    const ageRange = [18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32, 33, 34, 35, 36, 37, 38];
+    const ageRange = [18, 19, 20, 21, 22, 23, 24, 25];
     const selectedIndex = parseInt(e.detail.value);
     const selectedAge = ageRange[selectedIndex];
     
@@ -154,6 +156,20 @@ Page({
     this.setData({
       'basicInfo.city': e.detail.value
     });
+  },
+
+  onHeightChange(e: any) {
+    this.setData({
+      'basicInfo.height': e.detail.value
+    });
+    this.saveData();
+  },
+
+  onWeightChange(e: any) {
+    this.setData({
+      'basicInfo.weight': e.detail.value
+    });
+    this.saveData();
   },
 
 
@@ -190,37 +206,7 @@ Page({
     });
   },
 
-  // 步骤3: 社交需求
-  toggleSocialNeed(e: any) {
-    const need = e.currentTarget.dataset.need;
-    if (!need) {
-      console.error('need数据未传递', e);
-      return;
-    }
-    
-    // 创建新数组，避免直接修改data
-    const currentSocialNeeds = [...this.data.socialNeeds];
-    const index = currentSocialNeeds.indexOf(need);
-    
-    if (index > -1) {
-      // 已选中，移除
-      currentSocialNeeds.splice(index, 1);
-    } else {
-      // 未选中，添加
-      currentSocialNeeds.push(need);
-    }
-    
-    // 保存数据
-    this.saveData();
-    
-    this.setData({
-      socialNeeds: currentSocialNeeds
-    });
-    
-    console.log('当前选中的社交需求:', currentSocialNeeds);
-  },
-
-  // 步骤4: 价值观
+  // 步骤3: 价值观（原步骤4）
   onConsumptionChange(e: any) {
     const index = e.detail.value;
     const value = this.data.consumptionOptions[index] || '';
@@ -249,20 +235,20 @@ Page({
   },
 
   // 步骤5: 外貌偏好
-  onStyleChange(e: any) {
-    const index = e.detail.value;
-    const value = this.data.styleOptions[index] || '';
-    this.setData({
-      'appearancePref.style': value
-    });
-    this.saveData();
-  },
-
   onAcceptanceChange(e: any) {
     const index = e.detail.value;
     const value = this.data.acceptanceOptions[index] || '';
     this.setData({
       'appearancePref.acceptance': value
+    });
+    this.saveData();
+  },
+
+  onHeightRequirementChange(e: any) {
+    const index = e.detail.value;
+    const value = this.data.heightRequirementOptions[index] || '';
+    this.setData({
+      'appearancePref.heightRequirement': value
     });
     this.saveData();
   },
@@ -411,7 +397,7 @@ Page({
     
     if (step === 1) {
       // 验证基础信息
-      if (!this.data.basicInfo.age || !this.data.basicInfo.city) {
+      if (!this.data.basicInfo.age || !this.data.basicInfo.city || !this.data.basicInfo.height || !this.data.basicInfo.weight) {
         wx.showToast({
           title: '请填写完整信息',
           icon: 'none'
@@ -428,32 +414,25 @@ Page({
         return false;
       }
     } else if (step === 3) {
-      // 验证社交需求
-      if (this.data.socialNeeds.length === 0) {
+      // 验证恋爱观倾向（原步骤4）
+      if (!this.data.values.consumption || !this.data.values.boundary || !this.data.values.communication) {
         wx.showToast({
-          title: '请至少选择一个社交需求',
+          title: '请完成所有恋爱观选择',
           icon: 'none'
         });
         return false;
       }
     } else if (step === 4) {
-      // 验证价值观
-      if (!this.data.values.consumption || !this.data.values.boundary || !this.data.values.communication) {
-        wx.showToast({
-          title: '请完成所有价值观选择',
-          icon: 'none'
-        });
-        return false;
-      }
-    } else if (step === 5) {
-      // 验证外貌偏好和照片
-      if (!this.data.appearancePref.style || !this.data.appearancePref.acceptance) {
+      // 验证外貌偏好（原步骤5）
+      if (!this.data.appearancePref.acceptance || !this.data.appearancePref.heightRequirement) {
         wx.showToast({
           title: '请完成外貌偏好选择',
           icon: 'none'
         });
         return false;
       }
+    } else if (step === 5) {
+      // 验证照片（原步骤6）
       if (this.data.photos.length === 0) {
         wx.showToast({
           title: '请至少上传一张照片',
@@ -486,7 +465,6 @@ Page({
       data: {
         basicInfo: this.data.basicInfo,
         interests: this.data.interests,
-        socialNeeds: this.data.socialNeeds,
         values: this.data.values,
         appearancePref: this.data.appearancePref,
         photos: this.data.photos
