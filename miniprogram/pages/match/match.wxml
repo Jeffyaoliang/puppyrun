@@ -1,0 +1,93 @@
+<!--pages/match/match.wxml-->
+<view class="match-container">
+  <view wx:if="{{swiperPages.length > 0}}" class="swiper-wrapper">
+    <swiper 
+      class="candidate-swiper"
+      indicator-dots="{{false}}"
+      indicator-color="rgba(255,255,255,0.3)"
+      indicator-active-color="#FF69B4"
+      current="{{currentPage}}"
+      bindchange="onSwiperChange"
+    >
+      <swiper-item wx:for="{{swiperPages}}" wx:key="index" wx:for-item="page">
+        <view class="cards-grid">
+          <view 
+            wx:for="{{page}}" 
+            wx:for-item="candidate"
+            wx:key="userId"
+            class="candidate-card"
+            bindtap="viewDetail"
+            data-userid="{{candidate.userId}}"
+          >
+            <!-- 头像区域（80%面积） -->
+            <view class="avatar-section">
+              <image class="avatar" src="{{candidate.avatar}}" mode="aspectFill"></image>
+            </view>
+            
+            <!-- 信息区域（20%面积） -->
+            <view class="info-section">
+              <view class="info-row">
+                <text class="nickname">{{candidate.nickname || '用户'}}</text>
+                <text class="age">{{candidate.age}}岁</text>
+              </view>
+              
+              <view class="info-row" wx:if="{{candidate.assetLevel}}">
+                <text class="asset-level">{{candidate.assetLevel}}</text>
+              </view>
+              
+              <view class="info-row">
+                <text class="match-score">匹配度 {{candidate.matchScore}}%</text>
+              </view>
+              
+              <view class="interests-row">
+                <text 
+                  wx:for="{{candidate.interests}}" 
+                  wx:for-item="interest"
+                  wx:key="index"
+                  wx:if="{{index < 3}}"
+                  class="interest-tag"
+                >
+                  {{interest}}
+                </text>
+              </view>
+            </view>
+            
+            <!-- 操作按钮 -->
+            <view class="card-actions">
+              <button 
+                class="action-btn pass-btn" 
+                bindtap="onPass"
+                data-userid="{{candidate.userId}}"
+                catchtap="true"
+              >
+                ✕
+              </button>
+              <button 
+                class="action-btn like-btn" 
+                bindtap="onLike"
+                data-userid="{{candidate.userId}}"
+                catchtap="true"
+              >
+                ♥
+              </button>
+            </view>
+          </view>
+        </view>
+      </swiper-item>
+    </swiper>
+    
+    <!-- 页码指示器 -->
+    <view class="page-indicator">
+      <view 
+        wx:for="{{swiperPages}}" 
+        wx:key="index"
+        class="indicator-dot {{currentPage === index ? 'active' : ''}}"
+      ></view>
+    </view>
+  </view>
+
+  <view wx:else class="empty-state">
+    <text>暂无匹配对象</text>
+    <button bindtap="loadCandidates">刷新</button>
+  </view>
+</view>

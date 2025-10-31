@@ -1,0 +1,320 @@
+/* index.wxss */
+page {
+  height: 100vh;
+  overflow: hidden;
+}
+
+.welcome-container {
+  min-height: 100vh;
+  background: linear-gradient(180deg, #FFB6C1 0%, #FFC0CB 30%, #FFD4B3 60%, #FFE4B5 100%);
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  overflow: hidden;
+}
+
+/* 顶部品牌区域 */
+.brand-header {
+  padding: 80rpx 40rpx 40rpx;
+  padding-top: calc(80rpx + env(safe-area-inset-top));
+  text-align: center;
+  position: relative;
+  z-index: 10;
+}
+
+.brand-title {
+  font-size: 64rpx;
+  font-weight: bold;
+  color: #fff;
+  display: block;
+  margin-bottom: 16rpx;
+  letter-spacing: 4rpx;
+  text-shadow: 0 4rpx 12rpx rgba(255, 105, 180, 0.3);
+}
+
+.brand-subtitle {
+  font-size: 28rpx;
+  color: rgba(255, 255, 255, 0.95);
+  display: block;
+  letter-spacing: 2rpx;
+}
+
+/* 中央区域 */
+.center-section {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  padding: 60rpx 40rpx;
+}
+
+/* 装饰性圆形背景 */
+.decorative-circles {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.circle {
+  position: absolute;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.15);
+  animation: ripple 4s ease-in-out infinite;
+}
+
+.circle-1 {
+  width: 400rpx;
+  height: 400rpx;
+  animation-delay: 0s;
+}
+
+.circle-2 {
+  width: 500rpx;
+  height: 500rpx;
+  animation-delay: 1s;
+}
+
+.circle-3 {
+  width: 600rpx;
+  height: 600rpx;
+  animation-delay: 2s;
+}
+
+.circle-4 {
+  width: 700rpx;
+  height: 700rpx;
+  animation-delay: 3s;
+}
+
+@keyframes ripple {
+  0%, 100% {
+    transform: scale(0.8);
+    opacity: 0.3;
+  }
+  50% {
+    transform: scale(1.1);
+    opacity: 0.1;
+  }
+}
+
+/* 心形容器 */
+.heart-container {
+  position: relative;
+  width: 300rpx;
+  height: 300rpx;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 60rpx;
+  z-index: 5;
+}
+
+/* 渐变光晕 */
+.heart-glow {
+  position: absolute;
+  width: 320rpx;
+  height: 320rpx;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(255, 182, 193, 0.6) 0%, rgba(255, 192, 203, 0.4) 30%, rgba(255, 212, 179, 0.3) 60%, rgba(255, 228, 181, 0.2) 100%);
+  animation: glowPulse 2s ease-in-out infinite;
+  z-index: 5;
+}
+
+@keyframes glowPulse {
+  0%, 100% {
+    transform: scale(1);
+    opacity: 0.8;
+  }
+  50% {
+    transform: scale(1.2);
+    opacity: 0.6;
+  }
+}
+
+.heart-icon {
+  position: relative;
+  font-size: 200rpx;
+  color: #000;
+  animation: heartbeat 1.5s ease-in-out infinite;
+  filter: drop-shadow(0 8rpx 16rpx rgba(0, 0, 0, 0.3));
+  line-height: 1;
+  z-index: 6;
+}
+
+@keyframes heartbeat {
+  0%, 100% {
+    transform: scale(1);
+  }
+  25% {
+    transform: scale(1.1);
+  }
+  50% {
+    transform: scale(1);
+  }
+  75% {
+    transform: scale(1.05);
+  }
+}
+
+/* 星星装饰 */
+.sparkle {
+  position: absolute;
+  font-size: 40rpx;
+  color: #FFD700;
+  animation: twinkle 2s ease-in-out infinite;
+  z-index: 7;
+}
+
+.sparkle-1 {
+  top: 20rpx;
+  right: 40rpx;
+  animation-delay: 0s;
+}
+
+.sparkle-2 {
+  bottom: 30rpx;
+  left: 30rpx;
+  animation-delay: 0.4s;
+}
+
+.sparkle-3 {
+  top: 50%;
+  right: 20rpx;
+  animation-delay: 0.8s;
+}
+
+.sparkle-4 {
+  top: 10rpx;
+  left: 50rpx;
+  animation-delay: 1.2s;
+}
+
+.sparkle-5 {
+  bottom: 50rpx;
+  right: 60rpx;
+  animation-delay: 1.6s;
+}
+
+@keyframes twinkle {
+  0%, 100% {
+    opacity: 0.3;
+    transform: scale(0.8) rotate(0deg);
+  }
+  50% {
+    opacity: 1;
+    transform: scale(1.2) rotate(180deg);
+  }
+}
+
+/* 主文案 */
+.main-message {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  z-index: 5;
+  margin-top: 40rpx;
+}
+
+.message-title {
+  font-size: 52rpx;
+  font-weight: bold;
+  color: #fff;
+  margin-bottom: 20rpx;
+  letter-spacing: 2rpx;
+  text-shadow: 0 4rpx 12rpx rgba(255, 105, 180, 0.3);
+}
+
+.message-subtitle {
+  font-size: 28rpx;
+  color: rgba(255, 255, 255, 0.95);
+  letter-spacing: 1rpx;
+}
+
+/* 特色说明区域 */
+.features-section {
+  display: flex;
+  justify-content: space-around;
+  padding: 60rpx 40rpx;
+  position: relative;
+  z-index: 5;
+}
+
+.feature-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  flex: 1;
+}
+
+.feature-icon {
+  font-size: 56rpx;
+  margin-bottom: 16rpx;
+  animation: bounce 2s ease-in-out infinite;
+  filter: drop-shadow(0 4rpx 8rpx rgba(0, 0, 0, 0.15));
+  line-height: 1;
+}
+
+.feature-item:nth-child(1) .feature-icon {
+  animation-delay: 0s;
+}
+
+.feature-item:nth-child(2) .feature-icon {
+  animation-delay: 0.3s;
+}
+
+.feature-item:nth-child(3) .feature-icon {
+  animation-delay: 0.6s;
+}
+
+@keyframes bounce {
+  0%, 100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-10rpx);
+  }
+}
+
+.feature-text {
+  font-size: 26rpx;
+  color: #fff;
+  font-weight: 500;
+  text-shadow: 0 2rpx 8rpx rgba(255, 105, 180, 0.2);
+}
+
+/* 底部操作区域 */
+.action-section {
+  padding: 40rpx 40rpx 60rpx;
+  padding-bottom: calc(60rpx + env(safe-area-inset-bottom));
+  position: relative;
+  z-index: 10;
+}
+
+.login-btn {
+  width: 100%;
+  height: 96rpx;
+  background: linear-gradient(135deg, #FF69B4 0%, #FF1493 100%);
+  color: #fff;
+  border-radius: 48rpx;
+  font-size: 36rpx;
+  font-weight: bold;
+  border: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 8rpx 24rpx rgba(255, 105, 180, 0.4);
+  transition: all 0.3s;
+}
+
+.login-btn:active {
+  transform: scale(0.98);
+  box-shadow: 0 4rpx 12rpx rgba(255, 105, 180, 0.3);
+}

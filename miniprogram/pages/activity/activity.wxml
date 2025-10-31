@@ -1,0 +1,52 @@
+<!--pages/activity/activity.wxml-->
+<view class="activity-container">
+  <!-- 筛选标签 -->
+  <view class="filter-tabs">
+    <view 
+      wx:for="{{['all', 'weekly', 'monthly', 'quarterly']}}" 
+      wx:key="index"
+      class="tab-item {{filterType === item ? 'active' : ''}}"
+      bindtap="filterActivities"
+      data-type="{{item}}"
+    >
+      {{item === 'all' ? '全部' : item === 'weekly' ? '每周' : item === 'monthly' ? '每月' : '季度'}}
+    </view>
+  </view>
+
+  <!-- 活动列表 -->
+  <scroll-view scroll-y class="activity-list">
+    <view 
+      wx:for="{{activities}}" 
+      wx:key="activityId"
+      class="activity-item"
+      bindtap="viewActivity"
+      data-id="{{item.activityId}}"
+    >
+      <image class="cover" src="{{item.cover || '/images/default-activity.png'}}" mode="aspectFill"></image>
+      <view class="content">
+        <view class="title">{{item.title}}</view>
+        <view class="info">
+          <text class="time">{{item.startTime}}</text>
+          <text class="location">{{item.location}}</text>
+        </view>
+        <view class="meta">
+          <text class="count">{{item.enrolledCount}}/{{item.maxCount}}人</text>
+          <text class="fee" wx:if="{{!item.memberFree && item.fee > 0}}">¥{{item.fee}}</text>
+          <text class="fee free" wx:else>会员免费</text>
+        </view>
+        <button 
+          class="enroll-btn {{item.status === 'full' ? 'disabled' : ''}}"
+          bindtap="enrollActivity"
+          data-id="{{item.activityId}}"
+          catchtap="true"
+        >
+          {{item.status === 'full' ? '已满员' : '立即报名'}}
+        </button>
+      </view>
+    </view>
+
+    <view wx:if="{{activities.length === 0 && !loading}}" class="empty-state">
+      <text>暂无活动</text>
+    </view>
+  </scroll-view>
+</view>

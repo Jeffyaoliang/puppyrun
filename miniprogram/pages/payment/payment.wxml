@@ -1,0 +1,42 @@
+<!--pages/payment/payment.wxml-->
+<view class="payment-container">
+  <view class="title">解锁联系方式</view>
+  
+  <view class="packages">
+    <view 
+      wx:for="{{packages}}" 
+      wx:key="type"
+      class="package-item {{selectedPackage.type === item.type ? 'selected' : ''}}"
+      bindtap="selectPackage"
+      data-type="{{item.type}}"
+    >
+      <view class="package-name">{{item.name}}</view>
+      <view class="package-price">
+        <text class="price">¥{{item.price}}</text>
+        <text wx:if="{{item.originalPrice}}" class="original-price">¥{{item.originalPrice}}</text>
+      </view>
+      <view class="package-desc">{{item.desc}}</view>
+    </view>
+  </view>
+
+  <view class="payment-info">
+    <view class="info-item">
+      <text>订单金额</text>
+      <text class="amount">¥{{selectedPackage.price}}</text>
+    </view>
+    <view class="info-item">
+      <text>平台服务费（30%）</text>
+      <text>¥{{platformFee}}</text>
+    </view>
+  </view>
+
+  <view class="tips">
+    <text>• 解锁后需对方同意才能查看联系方式</text>
+    <text>• 如对方拒绝，将全额退款</text>
+    <text>• 会员解锁次数永久有效</text>
+  </view>
+
+  <button class="pay-btn" bindtap="createOrder" disabled="{{paying}}">
+    {{paying ? '支付中...' : '立即支付'}}
+  </button>
+</view>

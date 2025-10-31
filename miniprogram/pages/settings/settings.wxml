@@ -1,0 +1,34 @@
+<!--pages/settings/settings.wxml-->
+<view class="settings-container">
+  <!-- 用户信息卡片 -->
+  <view class="user-card">
+    <image class="avatar" src="{{userInfo.avatar}}" mode="aspectFill"></image>
+    <view class="user-info">
+      <text class="nickname">{{userInfo.nickname || '未设置'}}</text>
+      <text class="member-tag" wx:if="{{memberLevel !== 'normal'}}">{{memberLevel === 'silver' ? '白银会员' : '黄金会员'}}</text>
+    </view>
+  </view>
+
+  <!-- 功能列表 -->
+  <view class="menu-list">
+    <view class="menu-item" bindtap="viewMatches">
+      <text>我的匹配</text>
+      <text class="arrow">></text>
+    </view>
+    
+    <view class="menu-item" bindtap="exportData">
+      <text>导出个人数据</text>
+      <text class="arrow">></text>
+    </view>
+    
+    <view class="menu-item" bindtap="contactService">
+      <text>联系客服</text>
+      <text class="arrow">></text>
+    </view>
+  </view>
+
+  <!-- 注销账号 -->
+  <view class="danger-zone">
+    <button class="delete-btn" bindtap="deleteAccount">注销账号</button>
+  </view>
+</view>

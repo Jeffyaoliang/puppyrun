@@ -1,0 +1,33 @@
+<!--pages/chat/chat.wxml-->
+<view class="chat-container">
+  <!-- 消息列表 -->
+  <scroll-view class="messages-container" scroll-y scroll-into-view="{{scrollIntoView}}">
+    <view wx:for="{{messages}}" wx:key="messageId" class="message-item {{item.senderId === userId ? 'self' : 'other'}}">
+      <view class="message-bubble">
+        <text>{{item.content}}</text>
+      </view>
+      <text class="message-time">{{item.sentAt}}</text>
+    </view>
+  </scroll-view>
+
+  <!-- 解锁提示 -->
+  <view wx:if="{{!contactUnlocked}}" class="unlock-tip">
+    <text>解锁联系方式后可查看对方微信号</text>
+    <button class="unlock-btn" bindtap="unlockContact">解锁联系方式</button>
+  </view>
+
+  <!-- 输入框 -->
+  <view class="input-container">
+    <input 
+      class="input-box" 
+      placeholder="输入消息..." 
+      value="{{inputValue}}"
+      bindinput="onInput"
+      confirm-type="send"
+      bindconfirm="sendMessage"
+    />
+    <button class="send-btn" bindtap="sendMessage" disabled="{{sending || !inputValue}}">
+      {{sending ? '发送中' : '发送'}}
+    </button>
+  </view>
+</view>

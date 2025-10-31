@@ -1,0 +1,76 @@
+<!--pages/auth/auth.wxml-->
+<view class="auth-container">
+  <!-- 步骤1: 选择角色 -->
+  <view wx:if="{{step === 1}}" class="step-container">
+    <view class="title">请选择您的身份</view>
+    <view class="role-selection">
+      <view class="role-card" bindtap="selectRole" data-role="male_student">
+        <view class="role-icon">👨‍🎓</view>
+        <text class="role-name">男大学生</text>
+        <text class="role-desc">18-25岁在读</text>
+      </view>
+      <view class="role-card" bindtap="selectRole" data-role="female">
+        <view class="role-icon">👩‍💼</view>
+        <text class="role-name">女性用户</text>
+        <text class="role-desc">28-38岁有稳定经济基础</text>
+      </view>
+    </view>
+  </view>
+
+  <!-- 步骤2: 上传证件 -->
+  <view wx:if="{{step === 2}}" class="step-container">
+    <view class="title">身份认证</view>
+    <view class="upload-section">
+      <!-- 男生：上传学生证 -->
+      <view wx:if="{{userRole === 'male_student'}}" class="upload-item">
+        <text class="label">上传学生证</text>
+        <view class="upload-box" bindtap="uploadStudentCard">
+          <image wx:if="{{studentCardImage}}" class="uploaded-image" src="{{studentCardImage}}" mode="aspectFit"></image>
+          <view wx:else class="upload-placeholder">
+            <text>点击上传</text>
+          </view>
+        </view>
+        <text class="hint">请上传清晰的学生证照片</text>
+      </view>
+
+      <!-- 女生：上传身份证 -->
+      <view wx:if="{{userRole === 'female'}}" class="upload-item">
+        <text class="label">上传身份证</text>
+        <view class="upload-box" bindtap="uploadIdCard">
+          <image wx:if="{{idCardImage}}" class="uploaded-image" src="{{idCardImage}}" mode="aspectFit"></image>
+          <view wx:else class="upload-placeholder">
+            <text>点击上传</text>
+          </view>
+        </view>
+        <text class="hint">请上传清晰的身份证照片</text>
+      </view>
+
+      <!-- 女生：可选资产证明 -->
+      <view wx:if="{{userRole === 'female'}}" class="upload-item">
+        <text class="label">资产证明（可选）</text>
+        <view class="upload-box" bindtap="uploadAssetProof">
+          <image wx:if="{{assetProofImage}}" class="uploaded-image" src="{{assetProofImage}}" mode="aspectFit"></image>
+          <view wx:else class="upload-placeholder">
+            <text>点击上传（可选）</text>
+          </view>
+        </view>
+        <text class="hint">上传资产证明可提升匹配优先级</text>
+      </view>
+    </view>
+
+    <view wx:if="{{errorMessage}}" class="error-message">{{errorMessage}}</view>
+
+    <button class="submit-btn" bindtap="submitAuth" disabled="{{uploading}}">
+      {{uploading ? '上传中...' : '开始人脸识别'}}
+    </button>
+  </view>
+
+  <!-- 步骤3: 人脸识别（在submitAuth中调用） -->
+  
+  <!-- 步骤4: 认证完成 -->
+  <view wx:if="{{step === 4}}" class="step-container">
+    <view class="success-icon">✓</view>
+    <view class="title">认证成功</view>
+    <view class="success-message">正在跳转到问卷页面...</view>
+  </view>
+</view>

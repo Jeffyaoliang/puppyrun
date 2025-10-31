@@ -1,0 +1,30 @@
+<!--pages/message-list/message-list.wxml-->
+<view class="message-list-container">
+  <view class="header">
+    <text class="title">消息</text>
+  </view>
+
+  <scroll-view class="messages-container" scroll-y>
+    <view 
+      wx:for="{{matches}}" 
+      wx:key="matchId"
+      class="message-item"
+      bindtap="enterChat"
+      data-matchid="{{item.matchId}}"
+    >
+      <image class="avatar" src="{{item.targetUser.avatar}}" mode="aspectFill"></image>
+      <view class="content">
+        <view class="info">
+          <text class="nickname">{{item.targetUser.nickname || '用户'}}</text>
+          <text class="time">{{item.matchedAt}}</text>
+        </view>
+        <text class="preview">点击开始聊天</text>
+      </view>
+      <view wx:if="{{!item.contactUnlocked}}" class="badge">未解锁</view>
+    </view>
+
+    <view wx:if="{{matches.length === 0 && !loading}}" class="empty-state">
+      <text>暂无消息</text>
+    </view>
+  </scroll-view>
+</view>

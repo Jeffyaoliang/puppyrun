@@ -1,0 +1,135 @@
+/* pages/profile/profile.wxss */
+.profile-container {
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  background: #f5f5f5;
+}
+
+.content {
+  flex: 1;
+}
+
+.header {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  padding: 60rpx 40rpx;
+  display: flex;
+  align-items: center;
+  gap: 30rpx;
+}
+
+.avatar {
+  width: 160rpx;
+  height: 160rpx;
+  border-radius: 80rpx;
+  border: 4rpx solid #fff;
+}
+
+.info {
+  flex: 1;
+  color: #fff;
+}
+
+.name {
+  font-size: 48rpx;
+  font-weight: bold;
+  display: block;
+  margin-bottom: 10rpx;
+}
+
+.age-city {
+  font-size: 28rpx;
+  opacity: 0.9;
+  display: block;
+  margin-bottom: 20rpx;
+}
+
+.match-score {
+  font-size: 32rpx;
+  font-weight: bold;
+}
+
+.match-reasons {
+  padding: 30rpx 40rpx;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10rpx;
+}
+
+.reason-tag {
+  background: #fff3cd;
+  color: #856404;
+  padding: 10rpx 20rpx;
+  border-radius: 20rpx;
+  font-size: 24rpx;
+}
+
+.section {
+  background: #fff;
+  margin: 20rpx 40rpx;
+  border-radius: 20rpx;
+  padding: 40rpx;
+}
+
+.section-title {
+  font-size: 32rpx;
+  font-weight: bold;
+  color: #333;
+  margin-bottom: 30rpx;
+}
+
+.tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20rpx;
+}
+
+.tag {
+  background: #f5f5f5;
+  color: #666;
+  padding: 10rpx 20rpx;
+  border-radius: 20rpx;
+  font-size: 28rpx;
+}
+
+.photos-scroll {
+  white-space: nowrap;
+}
+
+.photos {
+  display: inline-flex;
+  gap: 20rpx;
+}
+
+.photo {
+  width: 300rpx;
+  height: 400rpx;
+  border-radius: 10rpx;
+}
+
+.action-buttons {
+  display: flex;
+  gap: 20rpx;
+  padding: 20rpx 40rpx;
+  background: #fff;
+  border-top: 1rpx solid #eee;
+}
+
+.report-btn,
+.like-btn {
+  flex: 1;
+  height: 88rpx;
+  border-radius: 44rpx;
+  font-size: 32rpx;
+  font-weight: bold;
+}
+
+.report-btn {
+  background: #f5f5f5;
+  color: #666;
+}
+
+.like-btn {
+  background: #667eea;
+  color: #fff;
+}

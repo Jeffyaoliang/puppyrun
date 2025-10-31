@@ -1,0 +1,125 @@
+/* pages/payment/payment.wxss */
+.payment-container {
+  min-height: 100vh;
+  background: #f5f5f5;
+  padding: 40rpx;
+}
+
+.title {
+  font-size: 48rpx;
+  font-weight: bold;
+  color: #333;
+  margin-bottom: 40rpx;
+  text-align: center;
+}
+
+.packages {
+  display: flex;
+  flex-direction: column;
+  gap: 20rpx;
+  margin-bottom: 40rpx;
+}
+
+.package-item {
+  background: #fff;
+  border-radius: 20rpx;
+  padding: 40rpx;
+  border: 2rpx solid #eee;
+}
+
+.package-item.selected {
+  border-color: #667eea;
+  background: #f0f4ff;
+}
+
+.package-name {
+  font-size: 36rpx;
+  font-weight: bold;
+  color: #333;
+  margin-bottom: 20rpx;
+}
+
+.package-price {
+  display: flex;
+  align-items: baseline;
+  gap: 20rpx;
+  margin-bottom: 20rpx;
+}
+
+.price {
+  font-size: 48rpx;
+  font-weight: bold;
+  color: #667eea;
+}
+
+.original-price {
+  font-size: 28rpx;
+  color: #999;
+  text-decoration: line-through;
+}
+
+.package-desc {
+  font-size: 28rpx;
+  color: #666;
+  line-height: 1.6;
+}
+
+.payment-info {
+  background: #fff;
+  border-radius: 20rpx;
+  padding: 40rpx;
+  margin-bottom: 40rpx;
+}
+
+.info-item {
+  display: flex;
+  justify-content: space-between;
+  font-size: 28rpx;
+  color: #666;
+  margin-bottom: 20rpx;
+}
+
+.info-item:last-child {
+  margin-bottom: 0;
+}
+
+.amount {
+  font-size: 36rpx;
+  font-weight: bold;
+  color: #667eea;
+}
+
+.tips {
+  background: #fff3cd;
+  border-radius: 10rpx;
+  padding: 30rpx;
+  margin-bottom: 40rpx;
+}
+
+.tips text {
+  display: block;
+  font-size: 24rpx;
+  color: #856404;
+  margin-bottom: 10rpx;
+}
+
+.tips text:last-child {
+  margin-bottom: 0;
+}
+
+.pay-btn {
+  width: 100%;
+  height: 88rpx;
+  background: #667eea;
+  color: #fff;
+  border-radius: 44rpx;
+  font-size: 32rpx;
+  font-weight: bold;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.pay-btn[disabled] {
+  background: #ccc;
+}

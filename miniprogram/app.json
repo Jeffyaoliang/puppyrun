@@ -1,0 +1,69 @@
+{
+  "pages": [
+    "pages/index/index",
+    "pages/message-list/message-list",
+    "pages/auth/auth",
+    "pages/questionnaire/questionnaire",
+    "pages/match/match",
+    "pages/chat/chat",
+    "pages/payment/payment",
+    "pages/profile/profile",
+    "pages/settings/settings",
+    "pages/activity/activity",
+    "pages/cases/cases",
+    "pages/logs/logs",
+    "pages/contact/contact"
+  ],
+  "window": {
+    "navigationBarTextStyle": "white",
+    "navigationBarTitleText": "奶狗快跑",
+    "navigationBarBackgroundColor": "#FFB6C1"
+  },
+  "tabBar": {
+    "color": "#999999",
+    "selectedColor": "#FF69B4",
+    "backgroundColor": "#ffffff",
+    "borderStyle": "black",
+    "list": [
+      {
+        "pagePath": "pages/index/index",
+        "text": "首页",
+        "iconPath": "images/house.png",
+        "selectedIconPath": "images/house1.png"
+      },
+      {
+        "pagePath": "pages/message-list/message-list",
+        "text": "消息",
+        "iconPath": "images/bubble_circle.png",
+        "selectedIconPath": "images/bubble_circle1.png"
+      },
+      {
+        "pagePath": "pages/activity/activity",
+        "text": "活动",
+        "iconPath": "images/house.png",
+        "selectedIconPath": "images/house1.png"
+      },
+      {
+        "pagePath": "pages/settings/settings",
+        "text": "我的",
+        "iconPath": "images/house.png",
+        "selectedIconPath": "images/house1.png"
+      }
+    ],
+    "position": "bottom"
+  },
+  "style": "v2",
+  "componentFramework": "glass-easel",
+  "lazyCodeLoading": "requiredComponents",
+  "permission": {
+    "scope.userLocation": {
+      "desc": "用于匹配同城用户"
+    }
+  },
+  "requiredPrivateInfos": [
+    "getLocation"
+  ],
+  "miniApp": {
+    "useAuthorizePage": false
+  }
+}

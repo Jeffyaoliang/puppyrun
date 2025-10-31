@@ -1,0 +1,51 @@
+<!--pages/profile/profile.wxml-->
+<view class="profile-container">
+  <scroll-view scroll-y class="content">
+    <!-- 头像和基本信息 -->
+    <view class="header">
+      <image class="avatar" src="{{userInfo.avatar}}" mode="aspectFill"></image>
+      <view class="info">
+        <text class="name">{{userInfo.nickname || '用户'}}</text>
+        <text class="age-city">{{userInfo.age}}岁 · {{userInfo.city}}</text>
+        <view class="match-score">匹配度 {{matchScore}}%</view>
+      </view>
+    </view>
+
+    <!-- 匹配原因 -->
+    <view wx:if="{{matchReasons.length > 0}}" class="match-reasons">
+      <view wx:for="{{matchReasons}}" wx:key="index" class="reason-tag">{{item}}</view>
+    </view>
+
+    <!-- 兴趣标签 -->
+    <view class="section">
+      <view class="section-title">兴趣</view>
+      <view class="tags">
+        <text wx:for="{{userInfo.interests}}" wx:key="index" class="tag">{{item}}</text>
+      </view>
+    </view>
+
+    <!-- 社交需求 -->
+    <view class="section">
+      <view class="section-title">社交需求</view>
+      <view class="tags">
+        <text wx:for="{{userInfo.socialNeeds}}" wx:key="index" class="tag">{{item}}</text>
+      </view>
+    </view>
+
+    <!-- 照片 -->
+    <view wx:if="{{userInfo.photos && userInfo.photos.length > 0}}" class="section">
+      <view class="section-title">照片</view>
+      <scroll-view scroll-x class="photos-scroll">
+        <view class="photos">
+          <image wx:for="{{userInfo.photos}}" wx:key="index" src="{{item}}" mode="aspectFill" class="photo"></image>
+        </view>
+      </scroll-view>
+    </view>
+  </scroll-view>
+
+  <!-- 操作按钮 -->
+  <view class="action-buttons">
+    <button class="report-btn" bindtap="onReport">举报</button>
+    <button class="like-btn" bindtap="onLike">喜欢</button>
+  </view>
+</view>
