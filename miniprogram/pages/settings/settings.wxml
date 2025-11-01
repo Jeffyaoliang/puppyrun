@@ -27,8 +27,8 @@
     </view>
   </view>
 
-  <!-- 注销账号 -->
+  <!-- 退出登录 -->
   <view class="danger-zone">
-    <button class="delete-btn" bindtap="deleteAccount">注销账号</button>
+    <button class="delete-btn" bindtap="logout">退出登录</button>
   </view>
 </view>

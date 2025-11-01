@@ -96,7 +96,7 @@ Page({
     });
   },
 
-  // 上传身份证（女生）
+  // 上传身份证（女生和男生）
   uploadIdCard() {
     wx.chooseImage({
       count: 1,

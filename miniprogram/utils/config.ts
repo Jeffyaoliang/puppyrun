@@ -44,11 +44,21 @@
 //   路径：详情 -> 项目设置 -> 不校验合法域名...
 // ============================================
 
-// 当前配置（测试服务 - 不支持实际功能）
-export const API_BASE_URL = 'https://jsonplaceholder.typicode.com';
+// ============================================
+// Cloudflare Tunnel 配置的 API 地址
+// ============================================
+// 域名：puppyrun.site
+// API 地址：api.puppyrun.site（通过 Cloudflare Tunnel 配置）
+// ============================================
 
-// ⬇️ 取消注释并修改为你的真实后端地址 ⬇️
-// export const API_BASE_URL = 'https://api.yourdomain.com';
+// ⚠️ 注意：api.puppyrun.site 需要先配置 Cloudflare Tunnel 才能使用
+// 如果还没有配置 Tunnel，可以临时使用测试服务
+
+// 当前配置（Cloudflare Tunnel - 配置完成后使用）
+export const API_BASE_URL = 'https://api.puppyrun.site';
+
+// 临时测试服务（Cloudflare Tunnel 配置完成前使用）
+// export const API_BASE_URL = 'https://jsonplaceholder.typicode.com';
 
 // 如果需要测试文件上传，可以使用：
 // export const API_BASE_URL = 'https://httpbin.org';

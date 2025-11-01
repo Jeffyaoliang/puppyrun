@@ -99,6 +99,28 @@
   z-index: 10 !important;
 }
 
+/* 女生兴趣偏好选中时的更明显样式 */
+.option-item.female-selected {
+  background: linear-gradient(135deg, #FF1493 0%, #DC143C 100%) !important;
+  color: #fff !important;
+  border-color: #FF1493 !important;
+  border-width: 3rpx !important;
+  box-shadow: 0 16rpx 40rpx rgba(255, 20, 147, 0.6) !important;
+  transform: translateY(-8rpx) scale(1.05) !important;
+  font-weight: bold !important;
+}
+
+/* 男生兴趣偏好选中时的更明显样式 */
+.option-item.male-selected {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%) !important;
+  color: #fff !important;
+  border-color: #667eea !important;
+  border-width: 3rpx !important;
+  box-shadow: 0 16rpx 40rpx rgba(102, 126, 234, 0.6) !important;
+  transform: translateY(-8rpx) scale(1.05) !important;
+  font-weight: bold !important;
+}
+
 .photos-section {
   background: #fff;
   border-radius: 20rpx;

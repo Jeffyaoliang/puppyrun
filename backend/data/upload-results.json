@@ -1,0 +1,106 @@
+[
+  {
+    "userId": 1,
+    "nickname": "小明",
+    "photoPath": "D:\\TEST\\channels10_profile.jpg",
+    "photoUrl": "http://localhost:3000/uploads/1761982619214-970178163.jpg",
+    "aiScores": {
+      "气质匹配度": 6.7,
+      "风格契合度": 6.9,
+      "整体协调度": 8
+    },
+    "beautyScore": 7.7,
+    "faceDetected": true
+  },
+  {
+    "userId": 2,
+    "nickname": "张同学",
+    "photoPath": "D:\\TEST\\channels11_profile.jpg",
+    "photoUrl": "http://localhost:3000/uploads/1761982620646-743929914.jpg",
+    "aiScores": {
+      "气质匹配度": 6.7,
+      "风格契合度": 6.9,
+      "整体协调度": 8
+    },
+    "beautyScore": 7.7,
+    "faceDetected": true
+  },
+  {
+    "userId": 3,
+    "nickname": "李同学",
+    "photoPath": "D:\\TEST\\channels4_profile.jpg",
+    "photoUrl": "http://localhost:3000/uploads/1761982621959-585715393.jpg",
+    "aiScores": {
+      "气质匹配度": 6.2,
+      "风格契合度": 6.9,
+      "整体协调度": 5.1
+    },
+    "beautyScore": 7.7,
+    "faceDetected": true
+  },
+  {
+    "userId": 4,
+    "nickname": "王同学",
+    "photoPath": "D:\\TEST\\channels5_profile.jpg",
+    "photoUrl": "http://localhost:3000/uploads/1761982623261-253691843.jpg",
+    "aiScores": {
+      "气质匹配度": 5.6,
+      "风格契合度": 6.4,
+      "整体协调度": 4.9
+    },
+    "beautyScore": 7,
+    "faceDetected": true
+  },
+  {
+    "userId": 5,
+    "nickname": "刘同学",
+    "photoPath": "D:\\TEST\\channels6_profile.jpg",
+    "photoUrl": "http://localhost:3000/uploads/1761982624415-389552321.jpg",
+    "aiScores": {
+      "气质匹配度": 6.8,
+      "风格契合度": 7.4,
+      "整体协调度": 8.6
+    },
+    "beautyScore": 8.5,
+    "faceDetected": true
+  },
+  {
+    "userId": 6,
+    "nickname": "陈同学",
+    "photoPath": "D:\\TEST\\channels7_profile.jpg",
+    "photoUrl": "http://localhost:3000/uploads/1761982625589-613931387.jpg",
+    "aiScores": {
+      "气质匹配度": 4.5,
+      "风格契合度": 5.5,
+      "整体协调度": 7.2
+    },
+    "beautyScore": 5.7,
+    "faceDetected": true
+  },
+  {
+    "userId": 7,
+    "nickname": "杨同学",
+    "photoPath": "D:\\TEST\\channels8_profile.jpg",
+    "photoUrl": "http://localhost:3000/uploads/1761982626784-905396116.jpg",
+    "aiScores": {
+      "气质匹配度": 6.3,
+      "风格契合度": 6.6,
+      "整体协调度": 8.1
+    },
+    "beautyScore": 7.2,
+    "faceDetected": true
+  },
+  {
+    "userId": 8,
+    "nickname": "赵同学",
+    "photoPath": "D:\\TEST\\channels9_profile.jpg",
+    "photoUrl": "http://localhost:3000/uploads/1761982627963-107387231.jpg",
+    "aiScores": {
+      "气质匹配度": 7.5,
+      "风格契合度": 7.6,
+      "整体协调度": 6.9
+    },
+    "beautyScore": 8.7,
+    "faceDetected": true
+  }
+]

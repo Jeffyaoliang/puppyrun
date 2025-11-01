@@ -5,6 +5,8 @@
     "pages/auth/auth",
     "pages/questionnaire/questionnaire",
     "pages/match/match",
+    "pages/match-female/match-female",
+    "pages/match-male/match-male",
     "pages/chat/chat",
     "pages/payment/payment",
     "pages/profile/profile",

@@ -21,7 +21,14 @@
           >
             <!-- 头像区域（80%面积） -->
             <view class="avatar-section">
-              <image class="avatar" src="{{candidate.avatar}}" mode="aspectFill"></image>
+              <image 
+                class="avatar" 
+                src="{{candidate.avatar}}" 
+                mode="aspectFill"
+                binderror="onImageError"
+                data-userid="{{candidate.userId}}"
+                lazy-load="{{true}}"
+              ></image>
             </view>
             
             <!-- 信息区域（20%面积） -->

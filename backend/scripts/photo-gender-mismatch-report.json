@@ -1,0 +1,122 @@
+{
+  "report_generated_at": "2025-01-01T00:00:00.000Z",
+  "summary": {
+    "total_users": 20,
+    "male_users": 10,
+    "female_users": 10,
+    "users_with_mismatch": 4,
+    "photos_with_mismatch": 4,
+    "successfully_detected": 8,
+    "detection_match_rate": "50.0%"
+  },
+  "mismatches": [
+    {
+      "uid": 1,
+      "nickname": "小明",
+      "user_gender": "male",
+      "user_role": "male_student",
+      "phone": "13097740132",
+      "city": "北京",
+      "photo": {
+        "photo_id": 1,
+        "url": "http://localhost:3000/uploads/1761982619214-970178163.jpg",
+        "local_path": "backend/uploads/1761982619214-970178163.jpg",
+        "detected_gender": "female",
+        "status": "mismatch",
+        "action_required": "reupload"
+      }
+    },
+    {
+      "uid": 2,
+      "nickname": "张同学",
+      "user_gender": "male",
+      "user_role": "male_student",
+      "phone": "13112314031",
+      "city": "上海",
+      "photo": {
+        "photo_id": 2,
+        "url": "http://localhost:3000/uploads/1761982620646-743929914.jpg",
+        "local_path": "backend/uploads/1761982620646-743929914.jpg",
+        "detected_gender": "female",
+        "status": "mismatch",
+        "action_required": "reupload"
+      }
+    },
+    {
+      "uid": 7,
+      "nickname": "杨同学",
+      "user_gender": "male",
+      "user_role": "male_student",
+      "phone": "13654365758",
+      "city": "西安",
+      "photo": {
+        "photo_id": 7,
+        "url": "http://localhost:3000/uploads/1761982626784-905396116.jpg",
+        "local_path": "backend/uploads/1761982626784-905396116.jpg",
+        "detected_gender": "female",
+        "status": "mismatch",
+        "action_required": "reupload"
+      }
+    },
+    {
+      "uid": 8,
+      "nickname": "赵同学",
+      "user_gender": "male",
+      "user_role": "male_student",
+      "phone": "13774174898",
+      "city": "南京",
+      "photo": {
+        "photo_id": 8,
+        "url": "http://localhost:3000/uploads/1761982627963-107387231.jpg",
+        "local_path": "backend/uploads/1761982627963-107387231.jpg",
+        "detected_gender": "female",
+        "status": "mismatch",
+        "action_required": "reupload"
+      }
+    }
+  ],
+  "matched_users": [
+    {
+      "uid": 3,
+      "nickname": "李同学",
+      "user_gender": "male",
+      "status": "matched"
+    },
+    {
+      "uid": 4,
+      "nickname": "王同学",
+      "user_gender": "male",
+      "status": "matched"
+    },
+    {
+      "uid": 5,
+      "nickname": "刘同学",
+      "user_gender": "male",
+      "status": "matched"
+    },
+    {
+      "uid": 6,
+      "nickname": "陈同学",
+      "user_gender": "male",
+      "status": "matched"
+    }
+  ],
+  "users_without_photos": [
+    {
+      "uid": 9,
+      "nickname": "周同学",
+      "user_gender": "male"
+    },
+    {
+      "uid": 10,
+      "nickname": "吴同学",
+      "user_gender": "male"
+    }
+  ],
+  "notes": [
+    "Face++ API不支持WebP格式，女生的30张照片无法检测",
+    "建议将WebP格式照片转换为JPG/PNG后重新检测",
+    "需要在照片上传时添加性别验证功能"
+  ]
+}
+

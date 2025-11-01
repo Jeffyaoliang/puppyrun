@@ -33,6 +33,18 @@
         <text class="hint">请上传清晰的学生证照片</text>
       </view>
 
+      <!-- 男生：上传身份证 -->
+      <view wx:if="{{userRole === 'male_student'}}" class="upload-item">
+        <text class="label">上传身份证</text>
+        <view class="upload-box" bindtap="uploadIdCard">
+          <image wx:if="{{idCardImage}}" class="uploaded-image" src="{{idCardImage}}" mode="aspectFit"></image>
+          <view wx:else class="upload-placeholder">
+            <text>点击上传</text>
+          </view>
+        </view>
+        <text class="hint">请上传清晰的身份证照片</text>
+      </view>
+
       <!-- 女生：上传身份证 -->
       <view wx:if="{{userRole === 'female'}}" class="upload-item">
         <text class="label">上传身份证</text>
@@ -45,13 +57,13 @@
         <text class="hint">请上传清晰的身份证照片</text>
       </view>
 
-      <!-- 女生：可选资产证明 -->
+      <!-- 女生：资产证明 -->
       <view wx:if="{{userRole === 'female'}}" class="upload-item">
-        <text class="label">资产证明（可选）</text>
+        <text class="label">资产证明</text>
         <view class="upload-box" bindtap="uploadAssetProof">
           <image wx:if="{{assetProofImage}}" class="uploaded-image" src="{{assetProofImage}}" mode="aspectFit"></image>
           <view wx:else class="upload-placeholder">
-            <text>点击上传（可选）</text>
+            <text>点击上传</text>
           </view>
         </view>
         <text class="hint">上传资产证明可提升匹配优先级</text>

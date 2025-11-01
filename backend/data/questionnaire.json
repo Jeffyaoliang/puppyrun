@@ -1,0 +1,484 @@
+[
+  {
+    "uid": 1,
+    "basic_info": {
+      "age": 22,
+      "education": "本科",
+      "city": "北京"
+    },
+    "interests": [
+      "运动",
+      "读书",
+      "旅行",
+      "电影"
+    ],
+    "values": {
+      "consumption": "长期soul mate",
+      "boundary": "适度边界",
+      "communication": "直接沟通"
+    },
+    "appearance_pref": {
+      "acceptance": "有点要求"
+    },
+    "completed_at": "2025-11-01T07:36:59.192Z",
+    "created_at": "2025-11-01T07:36:59.192Z",
+    "updated_at": "2025-11-01T07:36:59.192Z"
+  },
+  {
+    "uid": 2,
+    "basic_info": {
+      "age": 22,
+      "education": "本科",
+      "city": "上海"
+    },
+    "interests": [
+      "运动",
+      "音乐",
+      "游戏"
+    ],
+    "values": {
+      "consumption": "短期伴侣",
+      "boundary": "开放边界",
+      "communication": "灵活沟通"
+    },
+    "appearance_pref": {
+      "acceptance": "顶级颜控"
+    },
+    "completed_at": "2025-11-01T07:36:59.192Z",
+    "created_at": "2025-11-01T07:36:59.192Z",
+    "updated_at": "2025-11-01T07:36:59.192Z"
+  },
+  {
+    "uid": 3,
+    "basic_info": {
+      "age": 22,
+      "education": "本科",
+      "city": "广州"
+    },
+    "interests": [
+      "读书",
+      "旅行",
+      "摄影"
+    ],
+    "values": {
+      "consumption": "长期soul mate",
+      "boundary": "适度边界",
+      "communication": "直接沟通"
+    },
+    "appearance_pref": {
+      "acceptance": "更看重内在"
+    },
+    "completed_at": "2025-11-01T07:36:59.193Z",
+    "created_at": "2025-11-01T07:36:59.193Z",
+    "updated_at": "2025-11-01T07:36:59.193Z"
+  },
+  {
+    "uid": 4,
+    "basic_info": {
+      "age": 22,
+      "education": "本科",
+      "city": "深圳"
+    },
+    "interests": [
+      "科技",
+      "读书",
+      "运动"
+    ],
+    "values": {
+      "consumption": "命定姻缘",
+      "boundary": "严格边界",
+      "communication": "委婉沟通"
+    },
+    "appearance_pref": {
+      "acceptance": "有点要求"
+    },
+    "completed_at": "2025-11-01T07:36:59.193Z",
+    "created_at": "2025-11-01T07:36:59.193Z",
+    "updated_at": "2025-11-01T07:36:59.193Z"
+  },
+  {
+    "uid": 5,
+    "basic_info": {
+      "age": 22,
+      "education": "本科",
+      "city": "杭州"
+    },
+    "interests": [
+      "电影",
+      "音乐",
+      "旅行"
+    ],
+    "values": {
+      "consumption": "长期soul mate",
+      "boundary": "适度边界",
+      "communication": "直接沟通"
+    },
+    "appearance_pref": {
+      "acceptance": "更看重内在"
+    },
+    "completed_at": "2025-11-01T07:36:59.193Z",
+    "created_at": "2025-11-01T07:36:59.193Z",
+    "updated_at": "2025-11-01T07:36:59.193Z"
+  },
+  {
+    "uid": 6,
+    "basic_info": {
+      "age": 22,
+      "education": "本科",
+      "city": "成都"
+    },
+    "interests": [
+      "运动",
+      "电影",
+      "美食"
+    ],
+    "values": {
+      "consumption": "短期伴侣",
+      "boundary": "开放边界",
+      "communication": "灵活沟通"
+    },
+    "appearance_pref": {
+      "acceptance": "有点要求"
+    },
+    "completed_at": "2025-11-01T07:36:59.193Z",
+    "created_at": "2025-11-01T07:36:59.193Z",
+    "updated_at": "2025-11-01T07:36:59.193Z"
+  },
+  {
+    "uid": 7,
+    "basic_info": {
+      "age": 22,
+      "education": "本科",
+      "city": "西安"
+    },
+    "interests": [
+      "读书",
+      "旅行",
+      "艺术"
+    ],
+    "values": {
+      "consumption": "长期soul mate",
+      "boundary": "适度边界",
+      "communication": "直接沟通"
+    },
+    "appearance_pref": {
+      "acceptance": "更看重内在"
+    },
+    "completed_at": "2025-11-01T07:36:59.193Z",
+    "created_at": "2025-11-01T07:36:59.193Z",
+    "updated_at": "2025-11-01T07:36:59.193Z"
+  },
+  {
+    "uid": 8,
+    "basic_info": {
+      "age": 22,
+      "education": "本科",
+      "city": "南京"
+    },
+    "interests": [
+      "运动",
+      "音乐",
+      "科技"
+    ],
+    "values": {
+      "consumption": "命定姻缘",
+      "boundary": "严格边界",
+      "communication": "委婉沟通"
+    },
+    "appearance_pref": {
+      "acceptance": "顶级颜控"
+    },
+    "completed_at": "2025-11-01T07:36:59.193Z",
+    "created_at": "2025-11-01T07:36:59.193Z",
+    "updated_at": "2025-11-01T07:36:59.193Z"
+  },
+  {
+    "uid": 9,
+    "basic_info": {
+      "age": 22,
+      "education": "本科",
+      "city": "武汉"
+    },
+    "interests": [
+      "电影",
+      "读书",
+      "旅行"
+    ],
+    "values": {
+      "consumption": "长期soul mate",
+      "boundary": "适度边界",
+      "communication": "直接沟通"
+    },
+    "appearance_pref": {
+      "acceptance": "有点要求"
+    },
+    "completed_at": "2025-11-01T07:36:59.193Z",
+    "created_at": "2025-11-01T07:36:59.193Z",
+    "updated_at": "2025-11-01T07:36:59.193Z"
+  },
+  {
+    "uid": 10,
+    "basic_info": {
+      "age": 22,
+      "education": "本科",
+      "city": "重庆"
+    },
+    "interests": [
+      "运动",
+      "美食",
+      "音乐"
+    ],
+    "values": {
+      "consumption": "短期伴侣",
+      "boundary": "开放边界",
+      "communication": "灵活沟通"
+    },
+    "appearance_pref": {
+      "acceptance": "更看重内在"
+    },
+    "completed_at": "2025-11-01T07:36:59.204Z",
+    "created_at": "2025-11-01T07:36:59.204Z",
+    "updated_at": "2025-11-01T07:36:59.204Z"
+  },
+  {
+    "uid": 11,
+    "basic_info": {
+      "age": 32,
+      "education": "本科",
+      "city": "北京"
+    },
+    "interests": [
+      "读书",
+      "旅行",
+      "艺术",
+      "电影"
+    ],
+    "values": {
+      "consumption": "长期soul mate",
+      "boundary": "适度边界",
+      "communication": "直接沟通"
+    },
+    "appearance_pref": {
+      "acceptance": "更看重内在"
+    },
+    "completed_at": "2025-11-01T07:36:59.204Z",
+    "created_at": "2025-11-01T07:36:59.204Z",
+    "updated_at": "2025-11-01T07:36:59.204Z"
+  },
+  {
+    "uid": 12,
+    "basic_info": {
+      "age": 32,
+      "education": "本科",
+      "city": "上海"
+    },
+    "interests": [
+      "运动",
+      "音乐",
+      "旅行"
+    ],
+    "values": {
+      "consumption": "命定姻缘",
+      "boundary": "严格边界",
+      "communication": "委婉沟通"
+    },
+    "appearance_pref": {
+      "acceptance": "有点要求"
+    },
+    "completed_at": "2025-11-01T07:36:59.205Z",
+    "created_at": "2025-11-01T07:36:59.205Z",
+    "updated_at": "2025-11-01T07:36:59.205Z"
+  },
+  {
+    "uid": 13,
+    "basic_info": {
+      "age": 32,
+      "education": "本科",
+      "city": "广州"
+    },
+    "interests": [
+      "读书",
+      "摄影",
+      "艺术"
+    ],
+    "values": {
+      "consumption": "长期soul mate",
+      "boundary": "适度边界",
+      "communication": "直接沟通"
+    },
+    "appearance_pref": {
+      "acceptance": "更看重内在"
+    },
+    "completed_at": "2025-11-01T07:36:59.205Z",
+    "created_at": "2025-11-01T07:36:59.205Z",
+    "updated_at": "2025-11-01T07:36:59.205Z"
+  },
+  {
+    "uid": 14,
+    "basic_info": {
+      "age": 32,
+      "education": "本科",
+      "city": "深圳"
+    },
+    "interests": [
+      "电影",
+      "音乐",
+      "美食"
+    ],
+    "values": {
+      "consumption": "短期伴侣",
+      "boundary": "开放边界",
+      "communication": "灵活沟通"
+    },
+    "appearance_pref": {
+      "acceptance": "顶级颜控"
+    },
+    "completed_at": "2025-11-01T07:36:59.205Z",
+    "created_at": "2025-11-01T07:36:59.205Z",
+    "updated_at": "2025-11-01T07:36:59.205Z"
+  },
+  {
+    "uid": 15,
+    "basic_info": {
+      "age": 32,
+      "education": "本科",
+      "city": "杭州"
+    },
+    "interests": [
+      "读书",
+      "旅行",
+      "科技"
+    ],
+    "values": {
+      "consumption": "长期soul mate",
+      "boundary": "适度边界",
+      "communication": "直接沟通"
+    },
+    "appearance_pref": {
+      "acceptance": "有点要求"
+    },
+    "completed_at": "2025-11-01T07:36:59.205Z",
+    "created_at": "2025-11-01T07:36:59.205Z",
+    "updated_at": "2025-11-01T07:36:59.205Z"
+  },
+  {
+    "uid": 16,
+    "basic_info": {
+      "age": 32,
+      "education": "本科",
+      "city": "成都"
+    },
+    "interests": [
+      "运动",
+      "旅行",
+      "美食"
+    ],
+    "values": {
+      "consumption": "命定姻缘",
+      "boundary": "严格边界",
+      "communication": "委婉沟通"
+    },
+    "appearance_pref": {
+      "acceptance": "更看重内在"
+    },
+    "completed_at": "2025-11-01T07:36:59.205Z",
+    "created_at": "2025-11-01T07:36:59.205Z",
+    "updated_at": "2025-11-01T07:36:59.205Z"
+  },
+  {
+    "uid": 17,
+    "basic_info": {
+      "age": 32,
+      "education": "本科",
+      "city": "西安"
+    },
+    "interests": [
+      "艺术",
+      "读书",
+      "电影"
+    ],
+    "values": {
+      "consumption": "长期soul mate",
+      "boundary": "适度边界",
+      "communication": "直接沟通"
+    },
+    "appearance_pref": {
+      "acceptance": "有点要求"
+    },
+    "completed_at": "2025-11-01T07:36:59.205Z",
+    "created_at": "2025-11-01T07:36:59.205Z",
+    "updated_at": "2025-11-01T07:36:59.205Z"
+  },
+  {
+    "uid": 18,
+    "basic_info": {
+      "age": 32,
+      "education": "本科",
+      "city": "南京"
+    },
+    "interests": [
+      "读书",
+      "音乐",
+      "旅行"
+    ],
+    "values": {
+      "consumption": "短期伴侣",
+      "boundary": "开放边界",
+      "communication": "灵活沟通"
+    },
+    "appearance_pref": {
+      "acceptance": "顶级颜控"
+    },
+    "completed_at": "2025-11-01T07:36:59.205Z",
+    "created_at": "2025-11-01T07:36:59.205Z",
+    "updated_at": "2025-11-01T07:36:59.205Z"
+  },
+  {
+    "uid": 19,
+    "basic_info": {
+      "age": 32,
+      "education": "本科",
+      "city": "武汉"
+    },
+    "interests": [
+      "运动",
+      "科技",
+      "旅行"
+    ],
+    "values": {
+      "consumption": "长期soul mate",
+      "boundary": "适度边界",
+      "communication": "直接沟通"
+    },
+    "appearance_pref": {
+      "acceptance": "更看重内在"
+    },
+    "completed_at": "2025-11-01T07:36:59.205Z",
+    "created_at": "2025-11-01T07:36:59.205Z",
+    "updated_at": "2025-11-01T07:36:59.205Z"
+  },
+  {
+    "uid": 20,
+    "basic_info": {
+      "age": 32,
+      "education": "本科",
+      "city": "重庆"
+    },
+    "interests": [
+      "电影",
+      "美食",
+      "艺术"
+    ],
+    "values": {
+      "consumption": "命定姻缘",
+      "boundary": "严格边界",
+      "communication": "委婉沟通"
+    },
+    "appearance_pref": {
+      "acceptance": "有点要求"
+    },
+    "completed_at": "2025-11-01T07:36:59.205Z",
+    "created_at": "2025-11-01T07:36:59.205Z",
+    "updated_at": "2025-11-01T07:36:59.205Z"
+  }
+]

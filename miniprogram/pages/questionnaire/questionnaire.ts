@@ -6,6 +6,8 @@ Page({
   data: {
     currentStep: 1, // 当前步骤：1-5
     totalSteps: 5,
+    userId: '', // 用户ID
+    userRole: '', // 用户角色 'male_student' | 'female'
     
     // 步骤1: 基础信息
     basicInfo: {
@@ -27,8 +29,10 @@ Page({
       boundary: '',
       communication: ''
     },
-    consumptionOptions: ['5000以下', '5000-10000', '10000以上'],
+    consumptionOptions: ['5000以下', '5000-10000', '10000以上'], // 男生默认
+    consumptionLabel: '消费水平', // 男生默认
     boundaryOptions: ['严格边界', '适度边界', '开放边界'],
+    boundaryLabel: '社交边界', // 男生默认
     communicationOptions: ['直接沟通', '委婉沟通', '灵活沟通'],
     
     // 步骤4: 外貌偏好（原步骤5）
@@ -37,7 +41,9 @@ Page({
       heightRequirement: ''
     },
     acceptanceOptions: ['顶级颜控', '有点要求', '更看重内在'],
-    heightRequirementOptions: ['160以下', '160-170', '170+'],
+    acceptanceLabel: '你属于', // 男生默认
+    heightRequirementOptions: ['160以下', '160-170', '170+'], // 男生默认选项
+    ageOptions: [18, 19, 20, 21, 22, 23, 24, 25], // 男生默认年龄选项
     
     // 照片
     photos: [] as string[],
@@ -59,6 +65,62 @@ Page({
       return;
     }
     
+    // 获取用户ID和角色
+    const userId = wx.getStorageSync('userId') || '';
+    const userRole = wx.getStorageSync('userRole') || '';
+    
+    if (!userId || !userRole) {
+      wx.showModal({
+        title: '提示',
+        content: '用户信息不完整，请重新登录',
+        showCancel: false,
+        success: () => {
+          wx.reLaunch({
+            url: '/pages/index/index'
+          });
+        }
+      });
+      return;
+    }
+    
+    // 根据角色设置不同的选项
+    let ageOptions: number[] = [];
+    let heightRequirementOptions: string[] = [];
+    let consumptionOptions: string[] = [];
+    let consumptionLabel: string = '';
+    let boundaryLabel: string = '';
+    let acceptanceLabel: string = '';
+    
+    if (userRole === 'female') {
+      // 女生：年龄18-38，身高要求：1米7以下，1米7~1米85，1米85以上
+      ageOptions = Array.from({ length: 21 }, (_, i) => 18 + i); // 18-38
+      heightRequirementOptions = ['1米7以下', '1米7~1米85', '1米85以上'];
+      consumptionOptions = ['短期伴侣', '长期soul mate', '命定姻缘'];
+      consumptionLabel = '你期待的关系性质';
+      boundaryLabel = '异性社交边界';
+      acceptanceLabel = '颜值要求';
+    } else {
+      // 男生：年龄18-25，身高要求：160以下，160-170，170+
+      ageOptions = [18, 19, 20, 21, 22, 23, 24, 25];
+      heightRequirementOptions = ['160以下', '160-170', '170+'];
+      consumptionOptions = ['短期伴侣', '长期soul mate', '命定姻缘'];
+      consumptionLabel = '你期待的关系性质';
+      boundaryLabel = '异性社交边界';
+      acceptanceLabel = '颜值要求';
+    }
+    
+    // 保存到data中
+    this.setData({
+      userId: userId,
+      userRole: userRole,
+      ageOptions: ageOptions,
+      heightRequirementOptions: heightRequirementOptions,
+      consumptionOptions: consumptionOptions,
+      consumptionLabel: consumptionLabel,
+      boundaryLabel: boundaryLabel,
+      acceptanceLabel: acceptanceLabel
+    });
+    
     // 检查是否已认证（可选，因为可能从认证页面跳转过来）
     const authStatus = wx.getStorageSync('authStatus');
     if (authStatus !== 'verified') {
@@ -66,8 +128,18 @@ Page({
       console.log('认证状态:', authStatus);
     }
     
-    // 加载已保存的问卷数据
+    // 加载已保存的问卷数据（按用户ID和角色）
     this.loadSavedData();
+    
+    // 确保选项正确设置（加载数据后可能覆盖，需要重新设置）
+    this.setData({
+      ageOptions: ageOptions,
+      heightRequirementOptions: heightRequirementOptions,
+      consumptionOptions: consumptionOptions,
+      consumptionLabel: consumptionLabel,
+      boundaryLabel: boundaryLabel,
+      acceptanceLabel: acceptanceLabel
+    });
     
     // 初始化兴趣选项状态
     this.updateInterestOptionsState();
@@ -84,25 +156,52 @@ Page({
     });
   },
 
-  // 加载已保存的数据
+  // 获取问卷存储key（按用户ID和角色）
+  getQuestionnaireKey(): string {
+    const userId = this.data.userId || wx.getStorageSync('userId') || '';
+    const userRole = this.data.userRole || wx.getStorageSync('userRole') || '';
+    if (!userId || !userRole) {
+      console.error('无法获取用户ID或角色');
+      return 'questionnaire_draft'; // 降级到旧key
+    }
+    return `questionnaire_draft_${userId}_${userRole}`;
+  },
+
+  // 加载已保存的数据（按用户ID和角色）
   loadSavedData() {
-    const savedData = wx.getStorageSync('questionnaire_draft');
+    const key = this.getQuestionnaireKey();
+    const savedData = wx.getStorageSync(key);
     if (savedData) {
+      console.log('加载问卷数据:', key, savedData);
       this.setData(savedData);
+    } else {
+      console.log('未找到保存的问卷数据:', key);
     }
   },
 
-  // 保存当前数据
+  // 保存当前数据（按用户ID和角色）
   saveData() {
+    const userId = this.data.userId || wx.getStorageSync('userId') || '';
+    const userRole = this.data.userRole || wx.getStorageSync('userRole') || '';
+    
+    if (!userId || !userRole) {
+      console.error('无法保存问卷数据：用户ID或角色缺失');
+      return;
+    }
+    
+    const key = this.getQuestionnaireKey();
     const dataToSave = {
       currentStep: this.data.currentStep,
       basicInfo: this.data.basicInfo,
       interests: this.data.interests,
       values: this.data.values,
       appearancePref: this.data.appearancePref,
-      photos: this.data.photos
+      photos: this.data.photos,
+      userId: userId,
+      userRole: userRole
     };
-    wx.setStorageSync('questionnaire_draft', dataToSave);
+    wx.setStorageSync(key, dataToSave);
+    console.log('保存问卷数据:', key, dataToSave);
   },
 
   // 下一步
@@ -135,9 +234,9 @@ Page({
   // 步骤1: 基础信息
   onAgeChange(e: any) {
     // e.detail.value 是picker返回的索引值，需要从range数组中获取实际年龄
-    const ageRange = [18, 19, 20, 21, 22, 23, 24, 25];
+    const ageOptions = this.data.ageOptions || [18, 19, 20, 21, 22, 23, 24, 25];
     const selectedIndex = parseInt(e.detail.value);
-    const selectedAge = ageRange[selectedIndex];
+    const selectedAge = ageOptions[selectedIndex];
     
     if (selectedAge !== undefined) {
       this.setData({
@@ -319,14 +418,44 @@ Page({
           
           // 正常后端服务
           if (data.code === 200 && data.data && data.data.url) {
-            // 更新对应位置的URL
+            // 更新对应位置的URL - 查找临时路径并替换
             const updatedPhotos = [...this.data.photos];
-            const index = updatedPhotos.indexOf(filePath);
-            if (index > -1) {
-              updatedPhotos[index] = data.data.url;
-              this.setData({ photos: updatedPhotos });
-              this.saveData();
+            const serverUrl = data.data.url;
+            
+            // 查找临时路径（http://tmp/ 或 wxfile:// 开头）
+            const tempPathIndex = updatedPhotos.findIndex((photo: string) => 
+              photo === filePath || 
+              photo.startsWith('http://tmp/') || 
+              photo.startsWith('wxfile://')
+            );
+            
+            if (tempPathIndex > -1) {
+              const oldUrl = updatedPhotos[tempPathIndex];
+              updatedPhotos[tempPathIndex] = serverUrl;
+              console.log('照片URL已更新:', {
+                index: tempPathIndex,
+                oldUrl: oldUrl,
+                newUrl: serverUrl,
+                urlLength: serverUrl.length,
+                urlValid: serverUrl.startsWith('http://') || serverUrl.startsWith('https://')
+              });
+            } else {
+              // 如果找不到，尝试添加到最后
+              console.warn('未找到临时路径，添加到数组末尾');
+              // 移除临时路径，添加服务器URL
+              const filteredPhotos = updatedPhotos.filter((photo: string) => 
+                photo !== filePath && 
+                !photo.startsWith('http://tmp/') && 
+                !photo.startsWith('wxfile://')
+              );
+              filteredPhotos.push(serverUrl);
+              updatedPhotos.length = 0;
+              updatedPhotos.push(...filteredPhotos);
             }
+            
+            this.setData({ photos: updatedPhotos });
+            this.saveData();
+            
             wx.showToast({
               title: '上传成功',
               icon: 'success'
@@ -359,17 +488,77 @@ Page({
       },
       fail: (error: any) => {
         console.error('上传失败:', error);
-        // 上传失败时，照片已使用临时路径添加到列表中，用户可以正常看到
-        // 检测是否为开发环境的示例 API 地址
-        const isExampleApi = API_BASE_URL.includes('api.example.com');
-        const errorMsg = isDevMode && isExampleApi
-          ? '开发环境：照片已保存（需配置后端 API）'
-          : '上传失败，照片已保存在本地';
-        wx.showToast({
-          title: errorMsg,
-          icon: 'none',
-          duration: 2000
-        });
+        
+        // 检查是否是域名校验错误
+        const errMsg = error.errMsg || '';
+        const isDomainError = errMsg.includes('合法域名') || 
+                             errMsg.includes('domain') ||
+                             errMsg.includes('not in domain list');
+        const isTimeout = errMsg.includes('timeout');
+        
+        // 检测是否为开发环境
+        const isDevApi = API_BASE_URL.includes('api.example.com') || 
+                        API_BASE_URL.includes('api.puppyrun.site') ||
+                        API_BASE_URL.includes('httpbin.org') ||
+                        API_BASE_URL.includes('jsonplaceholder.typicode.com');
+        
+        if (isDomainError) {
+          wx.showModal({
+            title: '域名配置错误',
+            content: '请在微信开发者工具中勾选"不校验合法域名"，或在微信小程序后台配置 uploadFile 合法域名。详见：docs/微信小程序域名配置说明.md',
+            showCancel: false
+          });
+        } else if (isTimeout) {
+          // 上传超时：在开发环境中允许继续使用临时路径
+          if (isDevMode && isDevApi) {
+            wx.showToast({
+              title: '上传超时，照片已保存在本地（开发环境）',
+              icon: 'none',
+              duration: 3000
+            });
+            // 在开发环境中，即使上传失败也保留临时路径，允许提交
+            console.log('开发环境：上传超时，保留临时路径照片，允许提交');
+          } else {
+            wx.showModal({
+              title: '上传超时',
+              content: '照片上传超时，请检查网络后重试上传',
+              showCancel: true,
+              confirmText: '重试',
+              cancelText: '取消',
+              success: (res) => {
+                if (res.confirm) {
+                  // 移除临时路径，允许用户重新上传
+                  const updatedPhotos = this.data.photos.filter((photo: string) => 
+                    photo !== filePath
+                  );
+                  this.setData({ photos: updatedPhotos });
+                  this.saveData();
+                  // 提示用户重新选择照片
+                  wx.showToast({
+                    title: '请重新选择照片',
+                    icon: 'none'
+                  });
+                }
+              }
+            });
+          }
+        } else {
+          // 其他上传失败：在开发环境中允许继续使用临时路径
+          if (isDevMode && isDevApi) {
+            wx.showToast({
+              title: '上传失败，照片已保存在本地（开发环境）',
+              icon: 'none',
+              duration: 3000
+            });
+            console.log('开发环境：上传失败，保留临时路径照片，允许提交');
+          } else {
+            wx.showToast({
+              title: '上传失败，照片已保存在本地',
+              icon: 'none',
+              duration: 2000
+            });
+          }
+        }
       }
     });
   },
@@ -451,13 +640,125 @@ Page({
       return;
     }
 
+    // 检测是否为开发环境
+    const isDevApi = API_BASE_URL.includes('api.example.com') || 
+                    API_BASE_URL.includes('api.puppyrun.site') ||
+                    API_BASE_URL.includes('httpbin.org') ||
+                    API_BASE_URL.includes('jsonplaceholder.typicode.com');
+    
+    // 检查是否有照片还在上传中（临时路径）
+    const tempPhotos = this.data.photos.filter((photo: string) => 
+      photo.startsWith('http://tmp/') || 
+      photo.startsWith('wxfile://') ||
+      photo.startsWith('file://')
+    );
+    
+    // 在开发环境中，允许临时路径的照片提交
+    if (tempPhotos.length > 0 && !(isDevMode && isDevApi)) {
+      wx.showModal({
+        title: '照片上传中',
+        content: `还有 ${tempPhotos.length} 张照片正在上传，请稍候再提交`,
+        showCancel: false
+      });
+      return;
+    }
+    
+    // 在开发环境中，如果有临时路径照片，给出提示但允许提交
+    if (tempPhotos.length > 0 && isDevMode && isDevApi) {
+      console.log('开发环境：检测到临时路径照片，允许提交');
+    }
+
+    // 验证照片URL完整性（开发环境中允许临时路径）
+    const invalidPhotos = this.data.photos.filter((photo: string) => {
+      // 检查URL是否完整（至少包含协议和域名）
+      if (!photo || typeof photo !== 'string') {
+        return true; // 无效
+      }
+      const trimmed = photo.trim();
+      
+      // 在开发环境中，临时路径也算有效
+      if (isDevMode && isDevApi) {
+        if (trimmed.startsWith('http://tmp/') || 
+            trimmed.startsWith('wxfile://') ||
+            trimmed.startsWith('file://')) {
+          return false; // 临时路径在开发环境中有效
+        }
+      }
+      
+      if (trimmed.length < 20) {
+        return true; // URL太短可能不完整
+      }
+      if (!trimmed.startsWith('http://') && !trimmed.startsWith('https://')) {
+        return true; // 不是有效的HTTP(S) URL
+      }
+      return false; // 有效
+    });
+    
+    // 在开发环境中，如果有无效照片但数量不多，给出提示但允许提交
+    if (invalidPhotos.length > 0) {
+      if (isDevMode && isDevApi) {
+        console.warn('开发环境：检测到无效照片URL，但允许提交');
+        // 在开发环境中，如果只有临时路径照片，允许提交
+        const onlyTempPhotos = invalidPhotos.every((photo: string) => 
+          photo.startsWith('http://tmp/') || 
+          photo.startsWith('wxfile://') ||
+          photo.startsWith('file://')
+        );
+        if (!onlyTempPhotos) {
+          wx.showModal({
+            title: '照片URL错误（开发环境）',
+            content: `有 ${invalidPhotos.length} 张照片的URL无效，但允许提交。生产环境需要有效URL。`,
+            showCancel: false
+          });
+        }
+      } else {
+        console.error('发现无效的照片URL:', invalidPhotos);
+        wx.showModal({
+          title: '照片URL错误',
+          content: `有 ${invalidPhotos.length} 张照片的URL无效，请重新上传`,
+          showCancel: false
+        });
+        return;
+      }
+    }
+    
+    // 记录提交的数据用于调试
+    console.log('提交问卷数据:', {
+      photos: this.data.photos,
+      photosCount: this.data.photos.length,
+      photoUrls: this.data.photos.map((p: string, i: number) => ({
+        index: i,
+        url: p,
+        length: p.length,
+        isValid: p.startsWith('http://') || p.startsWith('https://')
+      }))
+    });
+
     wx.showLoading({
       title: '提交中...'
     });
 
+    // 确保photos数组中的URL都是完整的
+    const photosToSubmit = this.data.photos.map((photo: string) => {
+      // 确保URL是字符串且完整
+      if (typeof photo !== 'string') {
+        console.warn('照片URL不是字符串:', photo);
+        return String(photo);
+      }
+      // 移除可能的空白字符
+      return photo.trim();
+    }).filter((photo: string) => {
+      // 过滤掉无效的URL
+      return photo && photo.length > 0 && 
+             (photo.startsWith('http://') || photo.startsWith('https://'));
+    });
+
+    console.log('准备提交的照片URL:', photosToSubmit);
+    
     wx.request({
       url: getApiUrl(API_PATHS.QUESTIONNAIRE_SUBMIT),
       method: 'POST',
+      timeout: isDevMode && isDevApi ? 30000 : 60000, // 开发环境30秒超时，生产环境60秒（Cloudflare Tunnel可能需要更长时间）
       header: {
         'Authorization': `Bearer ${wx.getStorageSync('token')}`,
         'Content-Type': 'application/json'
@@ -467,7 +768,7 @@ Page({
         interests: this.data.interests,
         values: this.data.values,
         appearancePref: this.data.appearancePref,
-        photos: this.data.photos
+        photos: photosToSubmit
       },
       success: (res: any) => {
         wx.hideLoading();
@@ -476,63 +777,158 @@ Page({
         const isTestService = API_BASE_URL.includes('httpbin.org') || 
                               API_BASE_URL.includes('jsonplaceholder.typicode.com');
         
+        // 跳转到匹配页面的通用函数
+        const navigateToMatch = () => {
+          // 优先使用页面中的 userRole，然后尝试从存储中读取
+          const userRole = this.data.userRole || wx.getStorageSync('userRole') || '';
+          
+          console.log('问卷提交成功，准备跳转:', {
+            userRoleFromData: this.data.userRole,
+            userRoleFromStorage: wx.getStorageSync('userRole'),
+            finalUserRole: userRole
+          });
+          
+          // 确保 userRole 被正确保存到存储中（以防万一）
+          if (userRole && userRole !== '') {
+            wx.setStorageSync('userRole', userRole);
+          }
+          
+          const matchUrl = userRole === 'female' 
+            ? '/pages/match-male/match-male'  // 女生跳转到发现男生页面
+            : '/pages/match-female/match-female'; // 男生跳转到发现女生页面
+          
+          console.log('跳转到匹配页面:', matchUrl, '用户角色:', userRole);
+          
+          wx.redirectTo({
+            url: matchUrl
+          });
+        };
+        
         if (isTestService) {
           // 测试服务：即使接口不存在，也模拟提交成功（数据已保存在本地）
           console.log('测试环境：问卷数据已保存在本地存储');
           
-          // 清除草稿（模拟提交成功）
-          wx.removeStorageSync('questionnaire_draft');
+          // 清除当前用户和角色的问卷草稿
+          const key = this.getQuestionnaireKey();
+          wx.removeStorageSync(key);
+          console.log('已清除问卷草稿:', key);
           
-          wx.showModal({
-            title: '提交成功（测试环境）',
-            content: '问卷数据已保存在本地。实际环境需要配置真实的后端 API。',
-            showCancel: false,
-            success: () => {
-              // 跳转到匹配页面
-              wx.redirectTo({
-                url: '/pages/match/match'
-              });
-            }
+          // 直接跳转，显示简短提示
+          wx.showToast({
+            title: '提交成功',
+            icon: 'success',
+            duration: 1000
           });
+          setTimeout(() => {
+            navigateToMatch();
+          }, 800);
           return;
         }
         
         // 正常后端服务
         if (res.data && res.data.code === 200) {
-          // 清除草稿
-          wx.removeStorageSync('questionnaire_draft');
+          // 清除当前用户和角色的问卷草稿
+          const key = this.getQuestionnaireKey();
+          wx.removeStorageSync(key);
+          console.log('已清除问卷草稿:', key);
           
+          // 显示成功提示并快速跳转
           wx.showToast({
             title: '提交成功',
-            icon: 'success'
+            icon: 'success',
+            duration: 1000
           });
           
-          // 跳转到匹配页面
           setTimeout(() => {
-            wx.redirectTo({
-              url: '/pages/match/match'
-            });
-          }, 1500);
+            navigateToMatch();
+          }, 800);
         } else {
-          wx.showToast({
-            title: res.data?.message || '提交失败',
-            icon: 'none'
-          });
+          // 后端返回失败，但在开发环境中仍然允许跳转
+          if (isDevMode && isDevApi) {
+            console.log('开发环境：后端API返回失败，但允许继续跳转');
+            const key = this.getQuestionnaireKey();
+            wx.removeStorageSync(key);
+            
+            // 直接跳转，不显示modal
+            wx.showToast({
+              title: '提交完成，跳转中...',
+              icon: 'success',
+              duration: 1000
+            });
+            setTimeout(() => {
+              navigateToMatch();
+            }, 800);
+          } else {
+            wx.showToast({
+              title: res.data?.message || '提交失败',
+              icon: 'none'
+            });
+          }
         }
       },
       fail: (error: any) => {
         wx.hideLoading();
         console.error('提交失败:', error);
-        // 检测是否为开发环境的示例 API 地址
-        const isExampleApi = API_BASE_URL.includes('api.example.com');
-        const errorMsg = isDevMode && isExampleApi
-          ? '开发环境：需配置实际的后端 API 地址'
-          : '网络错误，请稍后重试';
-        wx.showToast({
-          title: errorMsg,
-          icon: 'none',
-          duration: 3000
-        });
+        
+        // 在开发环境中，即使API失败也允许跳转
+        if (isDevMode && isDevApi) {
+          console.log('开发环境：API请求失败，但允许继续跳转');
+          const key = this.getQuestionnaireKey();
+          wx.removeStorageSync(key);
+          
+          // 获取用户角色并准备跳转
+          const userRole = this.data.userRole || wx.getStorageSync('userRole') || '';
+          
+          console.log('开发环境：准备跳转:', {
+            userRoleFromData: this.data.userRole,
+            userRoleFromStorage: wx.getStorageSync('userRole'),
+            finalUserRole: userRole
+          });
+          
+          // 确保 userRole 被正确保存到存储中（以防万一）
+          if (userRole && userRole !== '') {
+            wx.setStorageSync('userRole', userRole);
+          }
+          
+          const matchUrl = userRole === 'female' 
+            ? '/pages/match-male/match-male'  // 女生跳转到发现男生页面
+            : '/pages/match-female/match-female'; // 男生跳转到发现女生页面
+          
+          console.log('准备跳转到:', matchUrl, '用户角色:', userRole);
+          
+          // 直接跳转，显示简短提示
+          wx.showToast({
+            title: '提交完成，跳转中...',
+            icon: 'success',
+            duration: 1000
+          });
+          
+          setTimeout(() => {
+            console.log('开始执行跳转:', matchUrl);
+            wx.redirectTo({
+              url: matchUrl,
+              success: () => {
+                console.log('跳转成功');
+              },
+              fail: (err: any) => {
+                console.error('跳转失败:', err);
+                wx.showToast({
+                  title: '跳转失败，请手动进入发现页面',
+                  icon: 'none',
+                  duration: 3000
+                });
+              }
+            });
+          }, 800);
+        } else {
+          // 生产环境：显示错误，不允许跳转
+          const errorMsg = '网络错误，请稍后重试';
+          wx.showToast({
+            title: errorMsg,
+            icon: 'none',
+            duration: 3000
+          });
+        }
       }
     });
   }
